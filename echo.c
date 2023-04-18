@@ -81,6 +81,6 @@ void    ft_echo(char **str, int flag)
     }
     if (f == 0)
         ft_putstr("\n");
-    if (!flag)
+    if (flag)
         exit(0);
 }
