@@ -6,7 +6,7 @@
 /*   By: mazaroua <mazaroua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 02:20:21 by mazaroua          #+#    #+#             */
-/*   Updated: 2023/04/17 02:20:23 by mazaroua         ###   ########.fr       */
+/*   Updated: 2023/04/18 00:40:53 by mazaroua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int check_if_in_env(char *name,char *value, t_export *env)
 	}
 	return (0);
 }
-char *get_name(char *s)
+
+char *get_name(char *s) // a++=1
 {
 	int i;
 	char *p;
@@ -127,22 +128,15 @@ char *get_name(char *s)
 		return (NULL);
 	while (s[i] && s[i] != '=')
 	{
-		if(s[i] == '+' && s[i + 1] == '=' && i > 2)
+		if(s[i] == '+' && s[i + 1] == '=')
 			break;
+		else if (s[i] == '+' && s[i + 1] == '+')
+			return (NULL) ;
 		i++;
 	}
-	p = malloc(i + 1);
-	i = 0;
-	while (s[i] && s[i]  != '=')
-	{
-		p[i] = s[i];
-		if(s[i] == '+' && s[i + 1] == '=' && i > 2)
-			break;
-		i++;
-	}
-	p[i] = '\0';
-	return (p);
+	return (ft_strndup(s, i));
 }
+
 char *get_value(char *s)
 {
 	int i;
@@ -240,6 +234,7 @@ void	error_od_export(char *s)
 {
 	printf("error : %s not identifier\n",s);
 }
+
 int correct_name(char *s)
 {
 	int	i;
@@ -247,7 +242,7 @@ int correct_name(char *s)
 	i = 0;
 	if (s == NULL)
 		return (0);
-	while (s[i])
+	while (s[i]) 
 	{
 		if(ft_isalnum(s[i]) == 0) // check correct name 
 		{

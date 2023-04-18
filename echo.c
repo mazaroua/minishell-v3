@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mazaroua <mazaroua@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 02:20:30 by mazaroua          #+#    #+#             */
-/*   Updated: 2023/04/17 02:20:31 by mazaroua         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 // static void    ft_putstr(char *s)
@@ -42,14 +30,16 @@ int is_n(char *str)
     if(str == NULL)
         return 0;
     if (str[i] == '-')
-        i++;
-    while (str[i] && str[i] != 32)
     {
-        if (str[i] != 'n')
-            return (0);
         i++;
+        while (str[i] && str[i] != 32)
+        {
+            if (str[i] == 'n')
+                return (1);
+            i++;
+        }
     }
-    return (1);
+    return (0);
 }
 int if_more_n(char *s)
 {
@@ -74,11 +64,6 @@ void    ft_echo(char **str, int flag)
 
     f = 0;
     i = 1;
-    if (str[1] == NULL)
-    {
-        ft_putstr("\n");
-        return ;
-    }
     while (is_n(str[i]))
     {
         f = 1;
@@ -86,18 +71,16 @@ void    ft_echo(char **str, int flag)
             break;
         i++;
     }
-    if(i > 2)
-        f = 1;
     len = count_len_of_str(str);
-    while (i < len )
+    while (i < len)
     {
        ft_putstr(str[i]);
-       if (str[i + 1])
+       if (str[i][0] != 0 && str[i + 1])
          ft_putstr(" ");
        i++;
     }
     if (f == 0)
         ft_putstr("\n");
-    if (flag)
+    if (!flag)
         exit(0);
 }

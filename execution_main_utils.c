@@ -6,7 +6,7 @@
 /*   By: mazaroua <mazaroua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 22:31:13 by mazaroua          #+#    #+#             */
-/*   Updated: 2023/04/14 22:33:01 by mazaroua         ###   ########.fr       */
+/*   Updated: 2023/04/17 02:48:39 by mazaroua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void execve_func(char **cmd, t_env_list **env_list)
 	char *cmd_;
 	char **envp;
 
+
 	path = get_path(env_list);
-	if(cmd[0][0] != '/')
-		cmd_ = check_command_in_path(path, cmd[0]);
-	else
-		cmd_ = cmd[0];
+	cmd_ = check_command_in_path(path, cmd[0]);
 	envp = create_envp(env_list);
+	if (ft_strchr(cmd[0], '/'))
+		execve(cmd[0], cmd, envp);
 	if (!cmd_)
 	{
 		write( 1, "minishell: ", ft_strlen("minishell: "));

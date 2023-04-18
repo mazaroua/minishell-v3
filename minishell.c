@@ -6,13 +6,13 @@
 /*   By: mazaroua <mazaroua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:26:43 by mazaroua          #+#    #+#             */
-/*   Updated: 2023/04/13 16:43:14 by mazaroua         ###   ########.fr       */
+/*   Updated: 2023/04/17 23:21:35 by mazaroua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_cmd_line *cmd_line)
+void	free_cmd_line(t_cmd_line *cmd_line)
 {
 	t_cmd_line	*curr;
 	t_cmd_line	*next;
@@ -38,7 +38,8 @@ void	body(char *line, t_export **export_list, t_env_list **env_list)
 	{
 		expand(&tokens, env_list);
 		parser(&cmd_line, tokens);
-		execution(&cmd_line, env_list,export_list);
+		execution(&cmd_line, env_list, export_list);
+		free_cmd_line(cmd_line);
 	}
 		//////////////////////////////////////////////
 		// int j = 0;
